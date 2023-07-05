@@ -1,0 +1,28 @@
+{% load cms_tags static %}
+
+
+
+<{{ instance.tag_type }} {{ instance.attributes_str }}>
+    {% if link %}
+        <a href="{{ link }}"{% if instance.target %} target="{{ instance.target }}"{% endif %}>
+    {% endif %}
+
+    {% with image=carousel_image.image %}
+        {% include "image.html" %}
+    {% endwith %}
+
+    {% if link %}
+        </a>
+    {% endif %}
+
+    <div class="carousel-caption  d-md-block">
+        {{ instance.link_target }}
+        {% if instance.carousel_content %}
+            {{ instance.carousel_content }}
+        {% endif %}
+
+        {% for plugin in instance.child_plugin_instances %}
+            {% render_plugin plugin %}
+        {% endfor %}
+    </div>
+</{{ instance.tag_type }}>
